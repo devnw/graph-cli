@@ -17,31 +17,36 @@ func main() {
 	filePath := flag.String("file", "", "The path to the file to load the graph from")
 	flag.Parse()
 
-	var valid bool
-	if valid, err = validFile(*filePath); valid && err == nil {
+	if len(*filePath) > 0 {
 
-		var extension = filepath.Ext(*filePath)
-		if fileExtension == extension {
+		var valid bool
+		if valid, err = validFile(*filePath); valid && err == nil {
 
-			log.Printf("[%s] is a valid file", *filePath)
-			// TODO: Parse arguments
+			var extension = filepath.Ext(*filePath)
+			if fileExtension == extension {
 
-			// TODO: Load File
+				log.Printf("[%s] is a valid file", *filePath)
+				// TODO: Parse arguments
 
-			// TODO: Parse file
+				// TODO: Load File
 
-			// TODO: Build graph
+				// TODO: Parse file
+
+				// TODO: Build graph
+			} else {
+				log.Fatalf("[%s] is an invalid file extension, expected [%s]", extension, fileExtension)
+			}
 		} else {
-			log.Fatalf("[%s] is an invalid file extension, expected [%s]", extension, fileExtension)
+
+			var errorText string
+			if err != nil {
+				errorText = err.Error()
+			}
+
+			log.Fatalf("error occurred while validating file: [%s]", errorText)
 		}
 	} else {
-
-		var errorText string
-		if err != nil {
-			errorText = err.Error()
-		}
-
-		log.Fatalf("error occurred while validating file: [%s]", errorText)
+		log.Fatalf("-file path is required")
 	}
 }
 
