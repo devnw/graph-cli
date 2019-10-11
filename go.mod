@@ -1,3 +1,3 @@
-module github.com/benjivesterby/go-template-repo
+module github.com/benjivesterby/graph-cli
 
 go 1.13
