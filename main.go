@@ -2,11 +2,14 @@ package main
 
 import (
 	"bufio"
+	"context"
 	"flag"
+	"fmt"
 	"io"
 	"log"
 	"os"
 	"path/filepath"
+	"strconv"
 	"strings"
 
 	"github.com/benjivesterby/graph"
@@ -40,8 +43,13 @@ func main() {
 				if graphy, err = buildGraph(line); err == nil {
 
 					index := 1
-					for err == nil {
-						if line, err = reader.ReadString(linedelim); err == nil {
+					eof := false
+					for err == nil && !eof {
+						if line, err = reader.ReadString(linedelim); err == nil || err == io.EOF {
+
+							if err == io.EOF {
+								eof = true
+							}
 
 							// Build the graph using the line from the file
 							err = buildNode(graphy, line)
@@ -52,7 +60,7 @@ func main() {
 
 					if err == nil || err == io.EOF {
 						// TODO: print out the graph here
-
+						fmt.Println(graphy.String(context.Background()))
 					} else {
 						log.Fatalf("error at line [%v]: [%s]", index, err.Error())
 					}
@@ -101,7 +109,6 @@ func loadFile(path string) (file *os.File, reader *bufio.Reader, err error) {
 }
 
 func buildGraph(line string) (graphy *graph.Graphy, err error) {
-
 	line = clean(line)
 
 	// Parse file
@@ -137,20 +144,37 @@ func buildGraph(line string) (graphy *graph.Graphy, err error) {
 }
 
 func buildNode(graphy *graph.Graphy, line string) (err error) {
-	clean(line)
+	line = clean(line)
 
 	if len(line) > 0 {
 		values := strings.Split(line, "=")
 		if len(values) <= 3 {
-			if graphy.Weighted && len(values) == 3 {
-				// Weighted Graph
+			if len(values) > 1 {
+				var parent graph.Node
+				var child graph.Node
 
-			} else if !graphy.Weighted && len(values) == 2 {
-				// Unweighted Graph
+				if parent, err = graphy.Node(values[0]); err == nil {
+					if child, err = graphy.Node(values[1]); err == nil {
 
+						var weight int
+						if len(values) == 3 {
+							weight, err = strconv.Atoi(values[2])
+						}
+
+						if err == nil {
+							// Add the edge
+							err = graphy.AddEdge(parent, child, nil, weight)
+							fmt.Printf("Added edge between %v and %v\n", parent.Value(), child.Value())
+						}
+					} else {
+						err = errors.New("error while loading child node")
+					}
+				} else {
+					err = errors.New("error while loading parent node")
+				}
 			} else if len(values) == 1 {
 				// Node w/out edges
-				graphy.AddNode(values[0])
+				_, err = graphy.Node(values[0])
 			} else {
 				err = errors.Errorf("line [%s] is malformed for the graph type", line)
 			}
