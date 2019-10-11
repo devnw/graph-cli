@@ -50,10 +50,12 @@ func main() {
 						index++
 					}
 
-					if err != nil && err != io.EOF {
+					if err == nil || err == io.EOF {
+						// TODO: print out the graph here
+
+					} else {
 						log.Fatalf("error at line [%v]: [%s]", index, err.Error())
 					}
-
 				} else {
 					log.Fatalf("error in file [%s]: [%s]", path, err.Error())
 				}
@@ -165,8 +167,8 @@ func buildNode(graphy *graph.Graphy, line string) (err error) {
 // Clean up the line text and remove unwanted characters
 func clean(value string) string {
 
-	value = strings.Replace(value, "\n", "", -1)
-	value = strings.Replace(value, "\r", "", -1)
+	value = strings.ReplaceAll(value, "\n", "")
+	value = strings.ReplaceAll(value, "\r", "")
 	value = strings.TrimSpace(value)
 
 	return value
