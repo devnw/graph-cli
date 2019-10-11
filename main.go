@@ -141,8 +141,8 @@ func buildLine(graph *graph.Graphy, line string) (err error) {
 // Clean up the line text and remove unwanted characters
 func clean(value string) string {
 
-	value = strings.ReplaceAll(value, "\n", "")
-	value = strings.ReplaceAll(value, "\r", "")
+	value = strings.Replace(value, "\n", "", -1)
+	value = strings.Replace(value, "\r", "", -1)
 	value = strings.TrimSpace(value)
 
 	return value
