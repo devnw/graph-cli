@@ -153,28 +153,29 @@ func buildNode(graphy *graph.Graphy, line string) (err error) {
 				var parent graph.Node
 				var child graph.Node
 
-				if parent, err = graphy.Node(values[0]); err == nil {
-					if child, err = graphy.Node(values[1]); err == nil {
+				if len(values[0]) > 0 {
+					if parent, err = graphy.Node(values[0]); err == nil {
 
-						var weight int
-						if len(values) == 3 {
-							weight, err = strconv.Atoi(values[2])
-						}
+						if len(values[1]) > 0 {
+							if child, err = graphy.Node(values[1]); err == nil {
 
-						if err == nil {
-							// Add the edge
-							err = graphy.AddEdge(parent, child, nil, weight)
-							fmt.Printf("Added edge between %v and %v\n", parent.Value(), child.Value())
+								var weight int
+								if len(values) == 3 {
+									weight, err = strconv.Atoi(values[2])
+								}
+
+								if err == nil {
+									// Add the edge
+									err = graphy.AddEdge(parent, child, nil, weight)
+								}
+							} else {
+								err = errors.New("error while loading child node")
+							}
 						}
 					} else {
-						err = errors.New("error while loading child node")
+						err = errors.New("error while loading parent node")
 					}
-				} else {
-					err = errors.New("error while loading parent node")
 				}
-			} else if len(values) == 1 {
-				// Node w/out edges
-				_, err = graphy.Node(values[0])
 			} else {
 				err = errors.Errorf("line [%s] is malformed for the graph type", line)
 			}
