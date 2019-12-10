@@ -39,8 +39,8 @@ func main() {
 			var line string
 			if line, err = reader.ReadString(linedelim); err == nil {
 
-				var graphy *graph.Graphy
-				if graphy, err = buildGraph(line); err == nil {
+				var input *graph.Graphy
+				if input, err = buildGraph(line); err == nil {
 
 					index := 1
 					eof := false
@@ -52,7 +52,7 @@ func main() {
 							}
 
 							// Build the graph using the line from the file
-							err = buildNode(graphy, line)
+							err = buildNode(input, line)
 						}
 
 						index++
@@ -60,7 +60,19 @@ func main() {
 
 					if err == nil || err == io.EOF {
 						// TODO: print out the graph here
-						fmt.Println(graphy.String(context.Background()))
+						fmt.Println(input.String(context.Background()))
+
+						// TODO: Execute Primm's Algorithm Here
+						var output *graph.Graphy
+						if output, err = primm(input); err == nil {
+							if output != nil {
+
+								fmt.Println("PRIMM Graph")
+								fmt.Println(output.String(context.Background()))
+							}
+						} else {
+							// TODO:
+						}
 					} else {
 						log.Fatalf("error at line [%v]: [%s]", index, err.Error())
 					}
@@ -76,6 +88,11 @@ func main() {
 	} else {
 		log.Fatalf("--file path argument is required")
 	}
+}
+
+func primm(input *graph.Graphy) (output *graph.Graphy, err error) {
+
+	return output, err
 }
 
 func loadFile(path string) (file *os.File, reader *bufio.Reader, err error) {
@@ -150,8 +167,8 @@ func buildNode(graphy *graph.Graphy, line string) (err error) {
 		values := strings.Split(line, "=")
 		if len(values) <= 3 {
 			if len(values) > 1 {
-				var parent graph.Node
-				var child graph.Node
+				var parent *graph.Node
+				var child *graph.Node
 
 				if len(values[0]) > 0 {
 					if parent, err = graphy.Node(values[0]); err == nil {
