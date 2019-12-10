@@ -1,0 +1,13 @@
+undirected weighted
+r=a=2.0
+r=c=1.0
+a=c=3.0
+a=d=10.0
+b=r=4.0
+b=e=5.0
+c=b=2.0
+c=d=2.0
+c=e=8.0
+c=f=4.0
+d=f=6.0
+f=e=1.0

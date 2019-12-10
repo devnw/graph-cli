@@ -17,7 +17,7 @@ import (
 	"github.com/pkg/errors"
 )
 
-const fileExtension = ".graph"
+const fileExtension = ".gl"
 const linedelim = '\n'
 const directed = "directed"
 const weighted = "weighted"
@@ -159,9 +159,9 @@ func buildNode(graphy *graph.Graphy, line string) (err error) {
 						if len(values[1]) > 0 {
 							if child, err = graphy.Node(values[1]); err == nil {
 
-								var weight int
+								var weight float64
 								if len(values) == 3 {
-									weight, err = strconv.Atoi(values[2])
+									weight, err = strconv.ParseFloat(values[2], 64)
 								}
 
 								if err == nil {
