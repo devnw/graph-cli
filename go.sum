@@ -1,13 +1,7 @@
-github.com/benjivesterby/graph v0.0.0-20191004213241-b0cfc77510a5 h1:XfjPlteRuIPEyn+5dzKCugU8z6wwjpU0kU6ZVv89P2I=
-github.com/benjivesterby/graph v0.0.0-20191004213241-b0cfc77510a5/go.mod h1:mcCISIR+loW7vl1d+WW/y111Irs/Gw/MYtj2D84OrxI=
-github.com/benjivesterby/graph v0.0.0-20191011191655-7c967a0d8802 h1:HKe0908hONEFEJCUBlmqbS/Mdqv3BJeZZokungQXn4I=
-github.com/benjivesterby/graph v0.0.0-20191011191655-7c967a0d8802/go.mod h1:mcCISIR+loW7vl1d+WW/y111Irs/Gw/MYtj2D84OrxI=
-github.com/benjivesterby/graph v0.0.0-20191012013446-fa2e0fcd2349 h1:5PaW9YLAwNjeX29xQxdyRRB+3PsOfqWxaKo67Illqcc=
-github.com/benjivesterby/graph v0.0.0-20191012013446-fa2e0fcd2349/go.mod h1:N62LaoFHIUvIJv0nXgio0rUqB07rxYNemMXjhZTgKAk=
-github.com/benjivesterby/graph v0.0.0-20191210175842-b54e5627e790 h1:2o05rsDRMJMbbjgIPEyPkY5Obg9Ye4cipDtG5fmyB44=
-github.com/benjivesterby/graph v0.0.0-20191210175842-b54e5627e790/go.mod h1:N62LaoFHIUvIJv0nXgio0rUqB07rxYNemMXjhZTgKAk=
 github.com/benjivesterby/graph v0.0.0-20191211185211-21c7e389cf64 h1:kCSazbhtNn2YtA2wIr9GAGKJMZVGIcAG0T4anqnEstY=
 github.com/benjivesterby/graph v0.0.0-20191211185211-21c7e389cf64/go.mod h1:N62LaoFHIUvIJv0nXgio0rUqB07rxYNemMXjhZTgKAk=
+github.com/benjivesterby/graph v0.0.1 h1:16tJVcCpx421R8haboUduM968Ss1lL48p7WUQA6kDOk=
+github.com/benjivesterby/graph v0.0.1/go.mod h1:N62LaoFHIUvIJv0nXgio0rUqB07rxYNemMXjhZTgKAk=
 github.com/benjivesterby/validator v1.0.0 h1:tH7Nmf9jTTyOUVxFDof71EbsBDYBAEkoKFF90m/7mnE=
 github.com/benjivesterby/validator v1.0.0/go.mod h1:Z+2cejivNzuwe6GpnMfhRee5HUWzNCZgiKZCVpJEkAo=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=

@@ -6,6 +6,7 @@ import (
 	"flag"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"log"
 	"os"
 	"path/filepath"
@@ -28,6 +29,8 @@ func main() {
 	ctx := context.Background()
 
 	filePath := flag.String("file", "", "The path to the file to load the graph from")
+	outPath := flag.String("out", "output.gl", "The path to the file to load the graph from")
+	rootNode := flag.String("root", "r", "The path to the file to load the graph from")
 	flag.Parse()
 
 	if len(*filePath) > 0 {
@@ -61,16 +64,22 @@ func main() {
 					}
 
 					if err == nil || err == io.EOF {
-						// TODO: print out the graph here
+
+						fmt.Println("Input Graph:")
 						fmt.Println(input.String(context.Background()))
 
 						// TODO: Execute Primm's Algorithm Here
 						var output *graph.Graphy
-						if output, err = prim(ctx, input, "r"); err == nil {
+						if output, err = prim(ctx, input, *rootNode); err == nil {
 							if output != nil {
 
-								fmt.Println("PRIM Graph")
+								fmt.Println("Output Graph | MST:")
 								fmt.Println(output.String(context.Background()))
+
+								fout := []byte(output.Export(ctx))
+								if err = ioutil.WriteFile(*outPath, fout, 0644); err != nil {
+									fmt.Println(err)
+								}
 							}
 						} else {
 							// TODO:
@@ -131,7 +140,6 @@ func prim(ctx context.Context, input *graph.Graphy, r interface{}) (output *grap
 		Weighted:    input.Weighted,
 	}
 
-	fmt.Println("Adding Root Node to MST")
 	var root *graph.Node
 	if root, err = heap.ExtractMin(); err == nil {
 
@@ -142,8 +150,6 @@ func prim(ctx context.Context, input *graph.Graphy, r interface{}) (output *grap
 			// Pop the root node off the heap
 			var min *graph.Node
 			if min, err = heap.ExtractMin(); err == nil {
-
-				fmt.Printf("Adding %v Node to MST\n", min.Value)
 
 				// using the attachment cost of the edges for the root node update the costs of the
 				// nodes still in the heap
@@ -160,21 +166,9 @@ func prim(ctx context.Context, input *graph.Graphy, r interface{}) (output *grap
 						output.AddEdge(parent, newNode, nil, min.Cost)
 					}
 				}
-
-				heap.Print()
-				fmt.Println()
 			}
 		}
 	}
-
-	fmt.Println("Input Graph")
-	fmt.Println(input.String(ctx))
-
-	fmt.Println("Ouput Graph / MST")
-	fmt.Println(output.String(ctx))
-
-	// fmt.Println("Heap")
-	// heap.Print()
 
 	return output, err
 }
