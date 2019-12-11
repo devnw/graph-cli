@@ -25,6 +25,8 @@ const weighted = "weighted"
 func main() {
 	var err error
 
+	ctx := context.Background()
+
 	filePath := flag.String("file", "", "The path to the file to load the graph from")
 	flag.Parse()
 
@@ -64,10 +66,10 @@ func main() {
 
 						// TODO: Execute Primm's Algorithm Here
 						var output *graph.Graphy
-						if output, err = primm(input); err == nil {
+						if output, err = prim(ctx, input, "r"); err == nil {
 							if output != nil {
 
-								fmt.Println("PRIMM Graph")
+								fmt.Println("PRIM Graph")
 								fmt.Println(output.String(context.Background()))
 							}
 						} else {
@@ -90,9 +92,122 @@ func main() {
 	}
 }
 
-func primm(input *graph.Graphy) (output *graph.Graphy, err error) {
+func prim(ctx context.Context, input *graph.Graphy, r interface{}) (output *graph.Graphy, err error) {
+
+	nodes := input.Nodes(ctx)
+	heap := &graph.Heap{}
+
+	// Add all nodes to the heap
+	func() {
+
+		for {
+			select {
+			case <-ctx.Done():
+				return
+			case n, ok := <-nodes:
+				if ok {
+
+					// Set the root node cost to 0
+					if n.Value == r {
+						n.Cost = 0
+					} else {
+
+						// Set infinite value for the float on each node that is not a root node
+						n.Cost = float64(^uint(0) >> 1)
+					}
+
+					heap.Insert(n)
+
+				} else {
+					return
+				}
+			}
+
+		}
+	}()
+
+	output = &graph.Graphy{
+		Directional: input.Directional,
+		Weighted:    input.Weighted,
+	}
+
+	fmt.Println("Adding Root Node to MST")
+	var root *graph.Node
+	if root, err = heap.ExtractMin(); err == nil {
+
+		output.Node(root.Value)
+		processNodeEdges(ctx, root, heap)
+
+		for heap.Size() > 0 {
+			// Pop the root node off the heap
+			var min *graph.Node
+			if min, err = heap.ExtractMin(); err == nil {
+
+				fmt.Printf("Adding %v Node to MST\n", min.Value)
+
+				// using the attachment cost of the edges for the root node update the costs of the
+				// nodes still in the heap
+
+				// Process the existing edges from the original graph
+				processNodeEdges(ctx, min, heap)
+
+				// Strip the existing edges from this node
+				var newNode *graph.Node
+				if newNode, err = output.Node(min.Value); err == nil {
+
+					var parent *graph.Node
+					if parent, err = output.Node(min.Parent.Value); err == nil {
+						output.AddEdge(parent, newNode, nil, min.Cost)
+					}
+				}
+
+				heap.Print()
+				fmt.Println()
+			}
+		}
+	}
+
+	fmt.Println("Input Graph")
+	fmt.Println(input.String(ctx))
+
+	fmt.Println("Ouput Graph / MST")
+	fmt.Println(output.String(ctx))
+
+	// fmt.Println("Heap")
+	// heap.Print()
 
 	return output, err
+}
+
+func processNodeEdges(ctx context.Context, node *graph.Node, heap *graph.Heap) {
+	edges := node.Edges(ctx)
+
+	for {
+		select {
+		case <-ctx.Done():
+			return
+		case e, ok := <-edges:
+			if ok {
+				child := e.Child()
+				if child == node {
+					child = e.Parent()
+				}
+
+				if child != node.Parent {
+
+					if wedge, ok := e.(graph.WeightedEdge); ok {
+						heap.ChangeCost(child.Value, node, wedge.Weight())
+					} else {
+						// TODO:
+						fmt.Printf("invalid weighted edge %v\n", child.Value)
+					}
+
+				}
+			} else {
+				return
+			}
+		}
+	}
 }
 
 func loadFile(path string) (file *os.File, reader *bufio.Reader, err error) {
