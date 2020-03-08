@@ -1,6 +1,6 @@
 module github.com/benjivesterby/graph-cli
 
-go 1.13
+go 1.14
 
 require (
 	github.com/benjivesterby/graph v0.0.1
