@@ -13,7 +13,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/benjivesterby/graph"
+	"github.com/devnw/graph"
 
 	"github.com/pkg/errors"
 )

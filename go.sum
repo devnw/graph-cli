@@ -1,10 +1,8 @@
-github.com/benjivesterby/graph v0.0.0-20191211185211-21c7e389cf64 h1:kCSazbhtNn2YtA2wIr9GAGKJMZVGIcAG0T4anqnEstY=
-github.com/benjivesterby/graph v0.0.0-20191211185211-21c7e389cf64/go.mod h1:N62LaoFHIUvIJv0nXgio0rUqB07rxYNemMXjhZTgKAk=
-github.com/benjivesterby/graph v0.0.1 h1:16tJVcCpx421R8haboUduM968Ss1lL48p7WUQA6kDOk=
-github.com/benjivesterby/graph v0.0.1/go.mod h1:N62LaoFHIUvIJv0nXgio0rUqB07rxYNemMXjhZTgKAk=
-github.com/benjivesterby/validator v1.0.0 h1:tH7Nmf9jTTyOUVxFDof71EbsBDYBAEkoKFF90m/7mnE=
-github.com/benjivesterby/validator v1.0.0/go.mod h1:Z+2cejivNzuwe6GpnMfhRee5HUWzNCZgiKZCVpJEkAo=
-github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
-github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
+github.com/devnw/graph v0.0.2-0.20200425212452-f613ab1acf23 h1:FUmEHsKXt+obq5t1NBUafeKpXSLOwSvZn4CCpjKcKtQ=
+github.com/devnw/graph v0.0.2-0.20200425212452-f613ab1acf23/go.mod h1:MU1FanHTny7H3FCg7RCiXXpch2d9+SGGWij35okzF/Q=
+github.com/devnw/validator v1.0.2 h1:AHOWd/lAfYafLdMJIkQwehiZSzhbYgyl4DrYbGrlKXI=
+github.com/devnw/validator v1.0.2/go.mod h1:YkDaw+j5A2uy3DMqhyecRqUhlDofVuCvsLTaiXh+Dn8=
 github.com/pkg/errors v0.8.1 h1:iURUrRGxPUNPdy5/HRSm+Yj6okJ6UtLINN0Q9M4+h3I=
 github.com/pkg/errors v0.8.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
+github.com/pkg/errors v0.9.1 h1:FEBLx1zS214owpjy7qsBeixbURkuhQAwrK5UwLGTwt4=
+github.com/pkg/errors v0.9.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
