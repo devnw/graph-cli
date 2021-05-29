@@ -1,7 +1,7 @@
 github.com/devnw/graph v0.0.2-0.20200425212452-f613ab1acf23 h1:FUmEHsKXt+obq5t1NBUafeKpXSLOwSvZn4CCpjKcKtQ=
 github.com/devnw/graph v0.0.2-0.20200425212452-f613ab1acf23/go.mod h1:MU1FanHTny7H3FCg7RCiXXpch2d9+SGGWij35okzF/Q=
-github.com/devnw/validator v1.0.2 h1:AHOWd/lAfYafLdMJIkQwehiZSzhbYgyl4DrYbGrlKXI=
-github.com/devnw/validator v1.0.2/go.mod h1:YkDaw+j5A2uy3DMqhyecRqUhlDofVuCvsLTaiXh+Dn8=
+devnw.com/validator v1.0.2 h1:AHOWd/lAfYafLdMJIkQwehiZSzhbYgyl4DrYbGrlKXI=
+devnw.com/validator v1.0.2/go.mod h1:YkDaw+j5A2uy3DMqhyecRqUhlDofVuCvsLTaiXh+Dn8=
 github.com/pkg/errors v0.8.1 h1:iURUrRGxPUNPdy5/HRSm+Yj6okJ6UtLINN0Q9M4+h3I=
 github.com/pkg/errors v0.8.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/pkg/errors v0.9.1 h1:FEBLx1zS214owpjy7qsBeixbURkuhQAwrK5UwLGTwt4=
